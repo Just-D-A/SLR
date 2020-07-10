@@ -22,15 +22,22 @@ public class Main {
         ArrayList<ArrayList<String>> grammar = grammarReader.readGrammar();
         System.out.println("*** Grammar success ***");
 
-        Converter converter = new Converter(grammar);
+        for(ArrayList<String> strArr: grammar) {
+            for(String str: strArr) {
+                System.out.println(str);
+            }
+            System.out.println("_____________");
+        }
+
+     /*   Converter converter = new Converter(grammar);
         ArrayList<MethodList> methodList = converter.convertGrammar();
 
-     /*
+
        Table table = new Table(methodList);
         ArrayList<Method> methods = table.createMethodsArr();
 
         table.writeTible();
-     */
+*/
 
    /*     System.out.println("*** Table complited ***");
         Runner runner = new Runner(tokenList, methods);
