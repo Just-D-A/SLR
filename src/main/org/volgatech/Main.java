@@ -24,10 +24,13 @@ public class Main {
 
         Converter converter = new Converter(grammar);
         ArrayList<MethodList> methodList = converter.convertGrammar();
-        Table table = new Table(methodList);
+
+     /*
+       Table table = new Table(methodList);
         ArrayList<Method> methods = table.createMethodsArr();
 
         table.writeTible();
+     */
 
    /*     System.out.println("*** Table complited ***");
         Runner runner = new Runner(tokenList, methods);

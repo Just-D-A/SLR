@@ -60,18 +60,7 @@ public class Method {
     }
 
     public void writeMethod() {
-        String guideSetsStr;
-        if ((guideSets != null) && (guideSets.size() >= 1)) {
-            guideSetsStr = guideSets.get(0);
-            for (int i = 1; i < guideSets.size(); i++) {
-                guideSetsStr += "||" + guideSets.get(i);
-            }
-        } else {
-            guideSetsStr = guideSet;
-        }
-
-        System.out.println(num + ";" + val + ";" + guideSetsStr + ";" + next +
-                ";" + shift + ";" + error + ";" + needStack + ";" + isEnd + ";");
+        System.out.println(val + "; IsRight?? " + isRightMethod);
     }
 
     public void changeNum(int num) {
@@ -127,17 +116,6 @@ public class Method {
     }
 
     public String getOutString() {
-        String guideSetsStr;
-        if ((guideSets != null) & (guideSets.size() >= 1)) {
-            guideSetsStr = guideSets.get(0);
-            for (int i = 1; i < guideSets.size(); i++) {
-                guideSetsStr += "||" + guideSets.get(i);
-            }
-        } else {
-            guideSetsStr = guideSet;
-        }
-
-        return num + ";" + val + ";" + guideSetsStr + ";" + next +
-                ";" + shift + ";" + error + ";" + needStack + ";" + isEnd + ";";
+        return num + ";" + val + ";";
     }
 }

@@ -1,0 +1,46 @@
+<E> -> <T> + <T>
+<T> -> <F> * <F>
+<F> -> ( <F> )
+<F> -> id | num
+//////////////////
+<E> -> <E> + <T>
+<E> -> <T>
+<T> -> <T> * <F>
+<T> -> <F>
+<F> -> - <F>
+<F> -> ( <E> )
+<F> -> id | num
+/////////
+<S> -> <A> <B> <C>
+<A> -> <A> a
+<A> -> @
+<B> -> <B> b
+<B> -> @
+<C> -> <C> c
+<C> -> @
+////////
+<S> -> <A> <B> <C>
+<A> -> a | @
+<B> -> b | @
+<C> -> c | @
+/////////
+<PROG> -> PROG id <VAR> BEGIN <key_words> END.
+<VAR> -> VAR <idlist>
+<idlist> -> id <A>
+<A> -> , <idlist> | @
+<key_words> -> <key_word> ; <B>
+<B> -> <key_words> | @
+<key_word> -> <IF> | <ASSIGNMENT> | <WHILE>
+<IF> -> IF ( <condition> ) BEGIN <key_words> END
+<condition> -> <id_or_num> logic_operation <id_or_num>
+<id_or_num> -> num | id
+<ASSIGNMENT> -> <id_or_num> = <id_or_num>
+<WHILE> -> WHILE ( <condition> ) BEGIN <key_words> END
+/////////
+<E> -> <T> <G>
+<G> -> + <T> <G>
+<G> -> @
+<T> -> <F> <U>
+<U> -> * <F> <U>
+<U> -> @
+<F> -> ( <E> ) | – <F> | id | num
