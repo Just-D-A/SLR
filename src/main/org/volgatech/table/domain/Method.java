@@ -6,12 +6,6 @@ public class Method {
     private String val;
     private int num;
     private boolean isTerminal;
-    private int next;
-    private String guideSet;     //направляющее множество
-    private boolean shift;       //сдвиг
-    private boolean error;
-    private boolean needStack;
-    private boolean isEnd;
     private ArrayList<String> guideSets;
     private boolean isRightMethod;
 
@@ -20,30 +14,7 @@ public class Method {
         this.val = val;
         this.num = num;
         isTerminal = checkTerminal();
-        next = -1;
-        guideSet = "NO";
         guideSets = new ArrayList<>();
-    }
-
-
-    public Method(String val, int num, boolean shift, boolean error, boolean needStack, boolean isEnd) {
-        this.val = val;
-        this.num = num;
-        this.shift = shift;
-        this.error = error;
-        this.needStack = needStack;
-        this.isEnd = isEnd;
-        isTerminal = false;
-        next = -1;
-        guideSet = "NO";
-        guideSets = new ArrayList<>();
-    }
-
-    public void setParams(boolean shift, boolean error, boolean needStack, boolean isEnd) {
-        this.shift = shift;
-        this.error = error;
-        this.needStack = needStack;
-        this.isEnd = isEnd;
     }
 
     public boolean getIsTerminale() {
@@ -67,10 +38,6 @@ public class Method {
         this.num = num;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
     public int getNum() {
         return num;
     }
@@ -79,32 +46,12 @@ public class Method {
         return val;
     }
 
-    public void setNext(int next) {
-        this.next = next;
-    }
-
-    public void setGuideSet(String guideSet) {
-        this.guideSet = guideSet;
-    }
-
     public void addGuideSets(ArrayList<String> guideSets) {
         this.guideSets.addAll(guideSets);
     }
 
     public ArrayList<String> getGuideSets() {
         return guideSets;
-    }
-
-    public String getGuideSet() {
-        return guideSet;
-    }
-
-    public boolean getNeedStack() {
-        return needStack;
-    }
-
-    public int getNext() {
-        return next;
     }
 
     public void setIsRightMethod(boolean isRightMethod) {

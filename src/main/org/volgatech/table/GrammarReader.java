@@ -23,16 +23,18 @@ public class GrammarReader {
         while (true) {
            ArrayList<String> grammarChanged = new ArrayList<>();
             line = reader.readLine();
+
             if (line == null) {
                 break;
             }
+
             String[] arguments = parseArguments(line);
             for(String str: arguments) {
                 if(!str.equals("->")) {
                     grammarChanged.add(str);
                 }
             }
-        //    ArrayList<String> grammarStr = new ArrayList<>(Arrays.asList(arguments));
+
             if (checkGrammar(arguments)) {
                     grammar.add(grammarChanged);
             }

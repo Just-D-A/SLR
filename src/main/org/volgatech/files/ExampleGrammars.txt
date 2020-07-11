@@ -50,3 +50,10 @@
 <U> -> * <F> <U>
 <U> -> @
 <F> -> ( <E> ) | – <F> | id | num
+//////////
+***FOR SLR***
+////////
+S -> real <idlist>
+<idlist> -> <idlist> , <id>
+<idlist> -> <id>
+<id> -> A | B | C

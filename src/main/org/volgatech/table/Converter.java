@@ -18,41 +18,7 @@ public class Converter {
     }
 
     private ArrayList<MethodList> makeMethodList() {
-        int x = 1;
-        ArrayList<MethodList> methodsArr = new ArrayList<>();
-
-        for (ArrayList<String> grammarStr : grammar) {
-
-            ArrayList<Method> methods = new ArrayList<>();
-            String firstMethod = grammarStr.get(0);
-
-            MethodList methodList = new MethodList();
-            methodList.addFirstMethod(new Method(firstMethod, x, false, true, false, false));
-            x++;
-
-            for (int i = 2; i < grammarStr.size(); i++) {
-                String grammarEl = grammarStr.get(i);
-
-                if (grammarEl.equals("|")) {
-                    methodList.addRightPartArray(methods);
-                    methodsArr.add(methodList);
-
-                    methods = new ArrayList<>();
-                    methodList = new MethodList();
-
-                    methodList.addFirstMethod(new Method(firstMethod, x, false, true, false, false));
-                    x++;
-
-                } else {
-                    Method method = new Method(grammarEl, x);
-                    methods.add(method);
-                    x++;
-                }
-
-            }
-            methodList.addRightPartArray(methods);
-            methodsArr.add(methodList);
-        }
+        String[][] table = new String[Globals.MAX_GRAMMAR_EL_COUNT][Globals.MAX_GRAMMAR_EL_COUNT];
         return methodsArr;
     }
 }

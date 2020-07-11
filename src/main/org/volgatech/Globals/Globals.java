@@ -43,4 +43,5 @@ public class Globals {
     //FOR RUNNER AND GRAMMAR
     public static String GRAMMAR_AND_TOKEN_NUMBER_SYMBOL = "num";
     public static String END_GUIDE_SET_VAL = "END_OF_FILE";
+    public static int MAX_GRAMMAR_EL_COUNT = 200;
 }
