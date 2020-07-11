@@ -66,28 +66,8 @@ public class MethodList {
             num++;
         }
     }
-
-    public void changeLastNonterminalNext() {
-        Method lastMethod = methodsRightPart.get(methodsRightPart.size() - 1);
-        if(lastMethod.getIsTerminale()) {
-            lastMethod.setNext(-1);
-        }
-
-    }
-
     public void changeFirstNum(int x) {
         this.firstMethod.changeNum(x);
     }
 
-    public void setFirstNext() {
-        firstMethod.setNext(methodsRightPart.get(0).getNum());
-    }
-
-    public void setFirstGuideSet(String guideSet) {
-        firstMethod.setGuideSet(guideSet);
-    }
-
-    public String getGuideSet() {
-        return firstMethod.getGuideSet();
-    }
 }

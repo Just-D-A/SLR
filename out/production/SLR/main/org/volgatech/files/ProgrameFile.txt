@@ -3,7 +3,7 @@ VAR a, b, c
 BEGIN
     IF(a>2)
      BEGIN
-       a = 4
+       a = 4;
      END;
     WHILE(c == 2)
       BEGIN
