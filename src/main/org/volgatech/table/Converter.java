@@ -19,6 +19,6 @@ public class Converter {
 
     private ArrayList<MethodList> makeMethodList() {
         String[][] table = new String[Globals.MAX_GRAMMAR_EL_COUNT][Globals.MAX_GRAMMAR_EL_COUNT];
-        return methodsArr;
+        return null;
     }
 }
