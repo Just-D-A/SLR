@@ -3,6 +3,7 @@ package main.org.volgatech;
 import main.org.volgatech.Globals.Globals;
 import main.org.volgatech.lexer.domain.Token;
 import main.org.volgatech.lexer.io.LexerReader;
+import main.org.volgatech.runner.Runner;
 import main.org.volgatech.table.Converter;
 import main.org.volgatech.table.GrammarReader;
 import main.org.volgatech.table.domain.Method;
@@ -314,14 +315,14 @@ public class Main {
         ArrayList<ArrayList<String>> grammar = grammarReader.readGrammar();
         System.out.println("*** Grammar success ***");
 
-        for(ArrayList<String> strArr: grammar) {
+       /* for(ArrayList<String> strArr: grammar) {
             for(String str: strArr) {
                 System.out.println(str);
             }
             System.out.println("_____________");
-        }
+        }*/
 
-
+        //Create table
         ArrayList<ArrayList<String>> grammarMap = new ArrayList<ArrayList<String>>();
         ArrayList<String> upPartOfTable = new ArrayList<>();
         upPartOfTable.add(" ");
@@ -372,6 +373,16 @@ public class Main {
             }
         }
         printMap(grammarMap);
+        System.out.println("*** Table success ***");
+       //RUNNER
+        Runner runner = new Runner(grammarMap, tokenList);
+        Token errorToken = runner.run();
+        if (errorToken == null) {
+            System.out.println("Complited!");
+        } else {
+            System.out.println("ERROR");
+            errorToken.writeToken();
+        }
 
 
 
