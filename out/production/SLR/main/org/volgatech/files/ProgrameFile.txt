@@ -1,13 +1,1 @@
-PROG Ship
-VAR a, b, c
-BEGIN
-    IF(a>2)
-     BEGIN
-       a = 4;
-     END;
-    WHILE(c == 2)
-      BEGIN
-        c = a1 + -5*-(a1+a1+5.2) + 6.25e - 3;
-        b = 2
-      END
-END.
+real A, B, C

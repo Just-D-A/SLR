@@ -1,8 +1,7 @@
 package main.org.volgatech.table;
 
 import main.org.volgatech.Globals.Globals;
-import main.org.volgatech.table.domain.Method;
-import main.org.volgatech.table.domain.MethodList;
+
 
 import java.util.ArrayList;
 
@@ -13,12 +12,19 @@ public class Converter {
         this.grammar = grammar;
     }
 
-    public ArrayList<MethodList> convertGrammar() {
-        return makeMethodList();
-    }
+    public ArrayList<ArrayList<String>> convertGrammar() {
 
-    private ArrayList<MethodList> makeMethodList() {
-        String[][] table = new String[Globals.MAX_GRAMMAR_EL_COUNT][Globals.MAX_GRAMMAR_EL_COUNT];
-        return null;
+        //grammar - входящая грамматика
+        for(ArrayList<String> grammarStr: grammar) {
+            for(String grammarStrEl: grammarStr) {
+                System.out.print(grammarStrEl + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("_________________________");
+
+        ArrayList<ArrayList<String>> grammarMap = new ArrayList<>();
+
+        return grammarMap;
     }
 }

@@ -35,58 +35,11 @@ public class Runner {
 
     public Token run() {
 
-        Token lastToken = new Token(0, "@", 0, 0);
-        tokens.add(lastToken);
-        for(Token token: tokens) {
-            System.out.println("TOKEN VALUE___: " + token.getValue());
-        }
-        for (int i = 0; i < tokens.size(); i++) {
-      //      System.out.println(tokens.get(i).getValue() + "IN FOR FOR");
-            if (!goToNext(tokens.get(i), i)) {
-                return tokens.get(i);
-            }
-        }
-    //    System.out.println(currStringsIndex);
-        if(currStringsIndex != 1) {
-            return new Token(0, "NOT END OF PROGRAME", 0, 0);
-        }
+
         return null;
     }
 
     private boolean goToNext(Token token, int index) {
-      //  if(!token.getValue().equals("@")) {
-            System.out.println("TOKEN VAL " + token.getValue() + " NUM: " + currStringsIndex);
-        //}
-        if((token.getValue().equals("@")) & (currStringsIndex == 1)) {
-            return true;
-        }
-        ArrayList<String> currStrings = table.get(currStringsIndex);
-        int upIndex = getColomIndexByToken(token);
-       // System.out.println(upIndex);
-        if (upIndex == -1) {
-            System.out.println("UNKNOWN TOKEN VAL FOR UPSET");
-            return false;
-        }
-        String valOfCell = currStrings.get(upIndex);
-        if ((valOfCell.equals(";")) | (valOfCell.equals(""))) {
-            System.out.println("EMPTY OF NEED CELL " + upIndex);
-            return false;
-        }
-        if (valOfCell.length() <= 3) {
-            char[] charArr = valOfCell.toCharArray();
-            if (charArr[0] == 'R') {
-                String substring = valOfCell.substring(1);
-            //    System.out.println(substring + " + LOL");
-                currStringsIndex = Integer.valueOf(substring);
-                return goToNext(token, currStringsIndex);
-            }
-        }
-   //     System.out.println(valOfCell);
-        currStringsIndex = getStringIndexByCellEl(valOfCell);
-        if (currStringsIndex == -1) {
-            System.out.println("CAN NOT FIND LEFT ELEMENT OF " + valOfCell);
-            return false;
-        }
         return true;
     }
 
@@ -105,23 +58,14 @@ public class Runner {
 
     private int getColomIndexByToken(Token token) {
         ArrayList<String> firstStrings = table.get(0);
-  /*      for (String str : firstStrings) {
-            System.out.print(str + " ");
-        }
-        System.out.println();
-        System.out.println("***END FIRST LINE**");*/
+
         int x = -1;
 
         for (int i = 0; i < firstStrings.size(); i++) {
             String upCellEl = firstStrings.get(i);
             if (upCellEl.contains("|")) {
                 String[] args = parseArguments(upCellEl);
-           /*     System.out.println("IN " + upCellEl);
-                for(String arg: args) {
-                    System.out.println("arg: " + arg);
-                }*/
                 for (int j = 0; j < args.length; j++) {
-                    //System.out.println("IN FOR " + upCellEl);
                     if (equlesTerminaleOrType(token, args[j])) {
                         x = i;
                         break;
