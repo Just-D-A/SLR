@@ -272,7 +272,7 @@ public class Converter {
                 String newBlock = (grammarMap.get(1).get(i) + "|" + grammarMap.get(2).get(i)).replace("|;", "");
                 grammarMap.get(1).set(i, newBlock.replace(";|", ""));
             }
-            for(int i = 0; i < grammarMap.get(0).size(); i++){
+            for(int i = 0; i < grammarMap.size(); i++){
                 grammarMap.get(i).remove(2);
             }
             grammarMap.remove(2);
