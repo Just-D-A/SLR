@@ -1,1 +1,1 @@
-real A, B, C
+real A, A, C
