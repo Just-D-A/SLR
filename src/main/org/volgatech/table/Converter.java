@@ -207,9 +207,6 @@ public class Converter {
                         String word = getWord(col);
                     }
                 }
-                for(String col : resultSearches){
-                    grammarMap.get(mapPos).set(grammarMap.get(0).indexOf(getWord(col)), "R" + endRow);
-                }
 
                 fillTable(grammarMap);
                 grammarMap.get(mapPos).set(grammarMap.get(0).indexOf("@"), "R" + endRow);
