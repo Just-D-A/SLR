@@ -1,6 +1,7 @@
 package main.org.volgatech.Globals;
 
 public class Globals {
+
     //lexer globals
     public static char              FLOAT_SYMBOL = 'e';
     public static char        FIRST_2_NUM_SYMBOL = '$';
@@ -44,4 +45,5 @@ public class Globals {
     public static String GRAMMAR_AND_TOKEN_NUMBER_SYMBOL = "num";
     public static String END_GUIDE_SET_VAL = "END_OF_FILE";
     public static int MAX_GRAMMAR_EL_COUNT = 200;
+    public static final String AXIOM_VAL = "<S>";
 }
