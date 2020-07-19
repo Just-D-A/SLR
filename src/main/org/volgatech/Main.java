@@ -184,9 +184,11 @@ public class Main {
                         }
                     }
                 } else  {
+                    if(!elem.getVal().contains("<S>")){
                         Integer index = cornerId(map, elem.getVal());
                         map.get(1).set(map.get(0).indexOf(elem.getVal()), map.get(index).get(0));
                         map.get(2).set(map.get(0).indexOf("@"), "R" + elem.getStringPosition());
+                    }
                 }
             }
         }
