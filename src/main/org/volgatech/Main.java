@@ -103,7 +103,7 @@ public class Main {
         map.get(0).add(grammar.get(0).get(1));
         fillTable(map);
 
-        for(int i = 0; i < convertedGrammar.size()-1; i++){
+        for(int i = 0; i < convertedGrammar.size(); i++){
             ArrayList<GrammarElement> grammarElem = convertedGrammar.get(i);
             for(GrammarElement elem : grammarElem){
                 if(elem.getStringPosition() == 0 && elem.getColomPosition() == 0){
@@ -183,6 +183,10 @@ public class Main {
 
                         }
                     }
+                } else  {
+                        Integer index = cornerId(map, elem.getVal());
+                        map.get(1).set(map.get(0).indexOf(elem.getVal()), map.get(index).get(0));
+                        map.get(2).set(map.get(0).indexOf("@"), "R" + elem.getStringPosition());
                 }
             }
         }
