@@ -16,7 +16,7 @@ public class Main {
     private static void printMap(ArrayList<ArrayList<String>> grammarMap){
         for (ArrayList<String> row : grammarMap) {
             for (String corn : row) {
-                System.out.format("%-25s",corn);
+                System.out.format("%-20s",corn);
                 //System.out.print(corn + ";");
             }
             System.out.println();
@@ -62,6 +62,9 @@ public class Main {
         return indexList;
     }
 
+    private static  boolean ifTerminal(String checkCorn){
+        return !checkCorn.contains("<") || !checkCorn.contains(">");
+    }
     private static  void fillTable(ArrayList<ArrayList<String>> grammarMap){
         for (ArrayList<String> row : grammarMap) {
             if(row.size() < grammarMap.get(0).size()){
@@ -88,10 +91,10 @@ public class Main {
         ArrayList<ArrayList<String>> map = new ArrayList<>();
         ArrayList<String> upPartOfTable = new ArrayList<>();
         upPartOfTable.add(" ");
-        upPartOfTable.add(grammar.get(0).get(0));
+        upPartOfTable.add(convertedGrammar.get(0).get(0).getVal());
         map.add(upPartOfTable);
         ArrayList<String> leftPartOfTable = new ArrayList<>();
-        leftPartOfTable.add(grammar.get(0).get(0));
+        leftPartOfTable.add(convertedGrammar.get(0).get(0).getVal());
         leftPartOfTable.add("ok");
         map.add(leftPartOfTable);
 
@@ -104,17 +107,21 @@ public class Main {
             ArrayList<GrammarElement> grammarElem = convertedGrammar.get(i);
             for(GrammarElement elem : grammarElem){
                 if(elem.getStringPosition() == 0 && elem.getColomPosition() == 0){
-                    String prevEl = "";
+                    GrammarElement prevEl = null;
                     for (GrammarElement el : elem.getNextElements()) {
                         if(!map.get(0).contains(el.getVal())){
                             map.get(0).add(el.getVal());
                         }
-                        if(cornerId(map,el.getVal()+el.getStringPosition()+""+el.getColomPosition()) == -1 && !el.getVal().contains(map.get(0).get(1))){
+                        if(( prevEl != null) && !el.getVal().equals("@") && (prevEl.getVal().equals(el.getVal()))) {
+                            Integer index = cornerId(map,prevEl.getVal()+prevEl.getStringPosition()+""+prevEl.getColomPosition());
+                            map.get(index).set(0, map.get(index).get(0) + "|" + el.getVal()+el.getStringPosition()+""+el.getColomPosition());
+                        } else if(cornerId(map,el.getVal()+el.getStringPosition()+""+el.getColomPosition()) == -1 && !el.getVal().contains(map.get(0).get(1))){
                             ArrayList<String> newRow = new ArrayList<>();
                             newRow.add(el.getVal()+el.getStringPosition()+""+el.getColomPosition());
                             map.add(newRow);
                         }
-                        prevEl = el.getVal();
+
+                        prevEl = el;
                     }
                     fillTable(map);
                 }
@@ -124,9 +131,11 @@ public class Main {
                         if(!map.get(0).contains(el.getVal())){
                             map.get(0).add(el.getVal());
                         }
-                        if((prevEl != null) && (cornerId(map, prevEl.getVal() + el.getStringPosition() + "" + prevEl.getColomPosition()) != -1)&& (prevEl.getVal().equals(el.getVal())) && !el.getVal().equals("@") && !map.get(cornerId(map,prevEl.getVal()+prevEl.getStringPosition()+""+prevEl.getColomPosition())).get(0).contains(el.getVal() + el.getStringPosition() + "" + el.getColomPosition())){
+                        // если
+                        if((prevEl != null) && !el.getVal().equals("@") && (prevEl.getVal().equals(el.getVal()))  && (cornerId(map, el.getVal()+ el.getStringPosition()+""+ el.getColomPosition()) == -1)){
                             Integer index = cornerId(map,prevEl.getVal()+prevEl.getStringPosition()+""+prevEl.getColomPosition());
                             map.get(index).set(0, map.get(index).get(0) + "|" + el.getVal()+el.getStringPosition()+""+el.getColomPosition());
+                            printMap(map);
                             if(index + 1 < map.size() && map.get(index+1).get(0).equals(el.getVal()+el.getStringPosition()+""+el.getColomPosition())){
                                 map.remove(index+1);
                             }
@@ -147,12 +156,14 @@ public class Main {
             fillTable(map);
         }
 
-        for(int i = 0; i < convertedGrammar.size()-1; i++){
+        for(int i = 0; i < convertedGrammar.size(); i++){
             ArrayList<GrammarElement> grammarElem = convertedGrammar.get(i);
             for(GrammarElement elem : grammarElem){
                 if(elem.getStringPosition() != 0) {
+
                     for (GrammarElement el : elem.getNextElements()) {
                         Integer index = 0;
+
                         if (elem.getStringPosition() == 1 && elem.getColomPosition() == 0){
                             index = cornerId(map, elem.getVal());
                         }else {

@@ -1,4 +1,9 @@
-<K> -> real <idlist>
-<idlist> -> <idlist> , <id>
-<idlist> -> <id>
-<id> -> A|B|C
+<S> -> <E>
+<E> -> <E> + <T>
+<E> -> <T>
+<T> -> <T> * <F>
+<T> -> <F>
+<F> -> ( <E> )
+<F> -> - <F>
+<F> -> id
+<F> -> num
