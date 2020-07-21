@@ -41,27 +41,33 @@ public class Runner {
         tokens.add(new Token(0, "@", 0, 0));
         shift();
         System.out.println("__TOKENS END__");
-        stack.push(7);
-        System.out.println(stack.empty());
+        stack.push(2);
+        System.out.println("***RUNNER START***");
         String currVal = "";
+
         while (!stack.empty()) {
             int currIndexString = stack.pop();
-            System.out.println(currIndexString);
+            System.out.println("WITH TOKEN " + currToken.getValue() + " TO STACK " + currIndexString);
+            //System.out.println(currIndexString);
+            System.out.println(stack);
             int upIndex;
             ArrayList<String> currString = table.get(currIndexString);
+            System.out.println("Curr VAl " + currVal);
             if (currVal.equals("")) {
-                System.out.println("WITH TOKEN " + currToken.getValue() + " TO STACK " + currIndexString);
                 if (isTerminal(currString.get(0))) {
-                    System.out.println(currString.get(0) + "LLL");
                     shift();
-                    currVal = currToken.getValue();
+                    System.out.println(currToken.getValue() + "Change to this");
                 }
+                //     System.out.println("WITH TOKEN " + currToken.getValue() + " TO STACK " + currIndexString);
                 upIndex = getColomIndexByToken(currToken);
+
                 System.out.println("CurrIndex " + upIndex + " TOKEN VAL " + currToken.getValue());
             } else {
+                System.out.println(currVal + " _________-");
                 upIndex = getUpIndexByVal(currVal);
                 currVal = "";
             }
+            System.out.println("UP INDEX " + upIndex);
             if (upIndex == -1) {
                 System.out.println("ERROR = " + upIndex);
                 return currToken;
@@ -79,6 +85,7 @@ public class Runner {
                 currVal = valOfCell;
                 System.out.println(currVal);
                 int countOfRight = getRightGrammarStringPart(Integer.parseInt(substring));
+                System.out.println(Integer.parseInt(substring) + " is rigth " + countOfRight);
                 for(int i = 0; i < countOfRight - 1; i++) {
                     System.out.println("MORE 3");
                     stack.pop();
