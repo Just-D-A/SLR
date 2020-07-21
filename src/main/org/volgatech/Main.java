@@ -6,6 +6,7 @@ import main.org.volgatech.lexer.io.LexerReader;
 import main.org.volgatech.convector.Converter;
 import main.org.volgatech.convector.GrammarReader;
 import main.org.volgatech.convector.domain.GrammarElement;
+import main.org.volgatech.runner.Runner;
 import main.org.volgatech.table.Table;
 
 import java.util.ArrayList;
@@ -87,6 +88,13 @@ public class Main {
         Converter converter = new Converter(grammar);
         ArrayList<ArrayList<GrammarElement>> convertedGrammar = converter.convertGrammar();
         System.out.println("*** Converter complited ***");
+
+        for(ArrayList<GrammarElement> arr: convertedGrammar) {
+            for(GrammarElement el: arr ) {
+                System.out.print(el.getVal() + " ");
+            }
+            System.out.println();
+        }
 
         ArrayList<ArrayList<String>> map = new ArrayList<>();
         ArrayList<String> upPartOfTable = new ArrayList<>();
@@ -194,16 +202,21 @@ public class Main {
         }
         printMap(map);
 
+        ArrayList<ArrayList<String>> grammmarConvert = converter.getGrammar();
+
         System.out.println("*** Table complited ***");
-     /*   Runner runner = new Runner(tokenList, methods);
+        Runner runner = new Runner(map, tokenList, grammmarConvert);
         Token errorToken = runner.run();
         if (errorToken == null) {
             System.out.println("Complited!");
         } else {
             System.out.println("ERROR");
             errorToken.writeToken();
-        } */
-
-
+        }
+        System.out.println("_____________*");
+        //System.out.println(map.get(1).get(0));
+   /*     for(String str: map.get(1)) {
+            System.out.println(str);
+        }*/
     }
 }

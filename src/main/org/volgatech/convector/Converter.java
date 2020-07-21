@@ -16,6 +16,7 @@ public class Converter {
 
     public ArrayList<ArrayList<GrammarElement>> convertGrammar() {
         //add axiom
+     //
         addAxiom();
         //convert to cell element and set numbers
         convertToCellElement();
@@ -27,10 +28,7 @@ public class Converter {
             for (int j = 0; j < grammarString.size(); j++) {
                 GrammarElement el = grammarString.get(j);
                 el.setNextElements(setNextElements(grammarString.get(j), new ArrayList<>()));
-                //System.out.println("***");
-
                 el.setLast(j == (grammarString.size() - 1));
-            //    el.writeOutGrammarElement();
             }
         }
         ArrayList<GrammarElement>  axStr = new ArrayList<>();
@@ -170,4 +168,7 @@ public class Converter {
     }
 
 
+    public ArrayList<ArrayList<String>> getGrammar() {
+        return grammar;
+    }
 }
