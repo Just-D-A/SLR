@@ -53,7 +53,7 @@
 //////////
 ***FOR SLR***
 ////////
-S -> real <idlist>
+<K> -> real <idlist>
 <idlist> -> <idlist> , <id>
 <idlist> -> <id>
 <id> -> A|B|C

@@ -1,7 +1,9 @@
 package main.org.volgatech.table;
 
+import javafx.scene.control.Cell;
 import main.org.volgatech.Globals.Globals;
 import main.org.volgatech.convector.domain.GrammarElement;
+import main.org.volgatech.table.domain.CellElement;
 
 import java.util.ArrayList;
 
@@ -23,63 +25,91 @@ public class Table {
     public ArrayList<ArrayList<String>> create() {
         //create UP STRING
         upString.add(" ");
-        upString.add("@");
         for (ArrayList<GrammarElement> grammarElementString : grammar) {
             for (GrammarElement el : grammarElementString) {
                 tryToAdd(el.getVal());
-                //   System.out.print(el.getVal() + " ");
+               // System.out.print(el.getVal() + " ");
             }
         }
+        upString.add("@");
         table.add(upString);
-        //  ArrayList<String> secondString = new ArrayList<>();
-        for (String val : upString) {
-            System.out.print(val + " ");
-        }
-        //init
-        ArrayList<ArrayList<GrammarElement>> elTableString = new ArrayList<>();
-        ArrayList<GrammarElement> cellArr = new ArrayList<>();
+        ArrayList<ArrayList<CellElement>> tableCells = new ArrayList<>();
+        ArrayList<CellElement> firstCellStr = new ArrayList<>();
+        ArrayList<GrammarElement> firstLeft = new ArrayList<>();
+        firstLeft.add(grammar.get(0).get(0));
+        firstCellStr.add(new CellElement(firstLeft));
+        tableCells.add(firstCellStr);
+        int i = 0;
+        while(i < tableCells.size()) {
+            //get left grammar element arr
+            ArrayList<CellElement> currString = tableCells.get(i);
+            CellElement leftCell = currString.get(0);
+            ArrayList<GrammarElement> leftElArr = leftCell.getCell();
 
-        cellArr.add(grammar.get(0).get(0));
-        elTableString.add(cellArr);
-        elTable.add(elTableString);
-
-        for (int i = 0; i < elTable.size(); i++) {
-            ArrayList<ArrayList<GrammarElement>> currString = elTable.get(i);
-            for (int j = 1; j < upString.size(); j++) {
-                currString.add(new ArrayList<>());
+            for(int j= 1; j < upString.size(); j++) {
+                String upVal = upString.get(j);
+                ArrayList<GrammarElement> cellElements = new ArrayList<>();
+                for(GrammarElement leftEl: leftElArr) {
+                    ArrayList<GrammarElement> leftElRightPart = leftEl.getNextElements();
+                    for(GrammarElement rightGrammarElement: leftElRightPart) {
+                        if(upVal.equals(rightGrammarElement.getVal())) {
+                            cellElements.add(rightGrammarElement);
+                        }
+                    }
+                }
+                currString.add(new CellElement(cellElements));
             }
-            //поехали заполним
-            GrammarElement leftEl = currString.get(0).get(0); // get <S>
-            ArrayList<GrammarElement> rightPart = leftEl.getNextElements();
-            for (GrammarElement rightPartEl : rightPart) {
-                int upIndex = getIndexByVal(rightPartEl.getVal());
-                ArrayList<GrammarElement> cell = currString.get(upIndex);
 
-                if (rightPartEl.isLast()) {
-                    GrammarElement elR = new GrammarElement("R" + rightPartEl.getStringPosition(), 0, 0);
-                    cell.add(elR);
-                } else {
-                    cell.add(rightPartEl);
-
+            for(CellElement cellElement: currString) {
+                boolean isInTable = false;
+                for(ArrayList<CellElement> cellElementsTable: tableCells) {
+                    if(cellElement.isEqual(cellElementsTable.get(0))) {
+                        isInTable = true;
+                    }
+                }
+                if(!isInTable) {
+                    ArrayList<CellElement> newCellString = new ArrayList<>();
+                    newCellString.add(cellElement);
+                    tableCells.add(newCellString);
                 }
             }
-            for(ArrayList<GrammarElement> cell: currString) {
-                tryAddLeftCell(cell);
-            }
-            for (int j = 1; j < currString.size(); j++) {
-                ArrayList<GrammarElement> cell = currString.get(j);
-                for (GrammarElement cellEl : cell) {
-                    System.out.print(cellEl.getVal() + " ");
-                }
-                System.out.println();
-            }
+            i++;
         }
 
+        for (ArrayList<CellElement> celElString : tableCells) {
+            ArrayList<String> newStr = new ArrayList<>();
+            CellElement firstEl = celElString.get(0);
+            ArrayList<GrammarElement> firstGramEl = firstEl.getCell();
+            for (CellElement cellElement : celElString) {
+                String result = "";
+                ArrayList<GrammarElement> gramArr = cellElement.getCell();
+                boolean isFirst = true;
+                for (GrammarElement grammarElement : gramArr) {
+                    if (!isFirst) {
+                        result += "|";
+                    } else {
+                        isFirst = false;
+                    }
+                    result += (grammarElement.getVal() + grammarElement.getStringPosition() + grammarElement.getColomPosition());
+                }
+                if (result.equals("")) {
+                    result = ".";
+                }
+                newStr.add(result);
+            }
+            for (GrammarElement grammarElement : firstGramEl) {
+                if (grammarElement.isLast()) {
+                    ArrayList<GrammarElement> nextGramElements = grammarElement.getNextElements();
+                    for (GrammarElement grammarElementsToR : nextGramElements) {
+                        int index = getIndexByVal(grammarElementsToR.getVal());
+                        newStr.set(index, "R" + grammarElement.getStringPosition());
+                    }
+                }
+            }
+            table.add(newStr);
+        }
 
-        System.out.println();
-        //FILL LEFT AND INSIDE
-        upString.add(Globals.AXIOM_VAL);
-
+        table.get(1).set(1, "ok");
         return table;
     }
 
@@ -100,34 +130,6 @@ public class Table {
             }
         }
         upString.add(vals);
-    }
-
-    private GrammarElement getElByIndex(int x, int y) {
-        if (x < grammar.size()) {
-            ArrayList<GrammarElement> grammarElementString = grammar.get(x);
-            return y < grammarElementString.size() ? grammarElementString.get(y) : null;
-        }
-        System.out.println("ERROR IN CONVECTOR");
-        return null;
-    }
-
-    private void tryAddLeftCell(ArrayList<GrammarElement> cell) {
-        for (ArrayList<ArrayList<GrammarElement>> elTableString : elTable) {
-            if (!isNew(elTableString.get(0), cell)) {
-                return;
-            }
-        }
-        ArrayList<ArrayList<GrammarElement>> newString = new ArrayList<>();
-        newString.add(cell);
-    }
-
-    private boolean isNew(ArrayList<GrammarElement> grammarElements, ArrayList<GrammarElement> cell) {
-        for (int i = 0; i < cell.size(); i++) {
-            if (!grammarElements.get(i).isEqual(cell.get(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }

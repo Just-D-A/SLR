@@ -41,7 +41,7 @@ public class Runner {
         tokens.add(new Token(0, "@", 0, 0));
         shift();
         System.out.println("__TOKENS END__");
-        stack.push(2);
+        stack.push(1);
         System.out.println("***RUNNER START***");
         String currVal = "";
 
@@ -52,22 +52,23 @@ public class Runner {
             System.out.println(stack);
             int upIndex;
             ArrayList<String> currString = table.get(currIndexString);
-            System.out.println("Curr VAl " + currVal);
+    //        System.out.println("Curr VAl " + currVal);
             if (currVal.equals("")) {
                 if (isTerminal(currString.get(0))) {
                     shift();
-                    System.out.println(currToken.getValue() + "Change to this");
+         //           System.out.println(currToken.getValue() + " Change to this");
+           //         System.out.println(currString.get(0) + " Change to this");
                 }
                 //     System.out.println("WITH TOKEN " + currToken.getValue() + " TO STACK " + currIndexString);
                 upIndex = getColomIndexByToken(currToken);
 
-                System.out.println("CurrIndex " + upIndex + " TOKEN VAL " + currToken.getValue());
+        //        System.out.println("Upndex " + upIndex + " TOKEN VAL " + currToken.getValue());
             } else {
-                System.out.println(currVal + " _________-");
+         //       System.out.println(currVal + " _________-");
                 upIndex = getUpIndexByVal(currVal);
                 currVal = "";
             }
-            System.out.println("UP INDEX " + upIndex);
+   //         System.out.println("UP INDEX " + upIndex);
             if (upIndex == -1) {
                 System.out.println("ERROR = " + upIndex);
                 return currToken;
@@ -76,16 +77,16 @@ public class Runner {
             if (valOfCell.equals("ok")) {
                 return null;
             }
-            System.out.println("VAL " + valOfCell);
+      //      System.out.println("VAL " + valOfCell);
             char[] charArr = valOfCell.toCharArray();
             if ((charArr[0] == 'R')) {
                 String substring = valOfCell.substring(1);
                 valOfCell = getGrammarStringFirstVal(Integer.parseInt(substring));
                 int index = getUpIndexByVal(valOfCell);
                 currVal = valOfCell;
-                System.out.println(currVal);
+          //      System.out.println(currVal);
                 int countOfRight = getRightGrammarStringPart(Integer.parseInt(substring));
-                System.out.println(Integer.parseInt(substring) + " is rigth " + countOfRight);
+            //    System.out.println(Integer.parseInt(substring) + " is rigth " + countOfRight);
                 for(int i = 0; i < countOfRight - 1; i++) {
                     System.out.println("MORE 3");
                     stack.pop();
@@ -93,11 +94,13 @@ public class Runner {
                 //stack.push(currIndexString);
                 //stack.push(index);
             } else if (!valOfCell.equals(".")) {
-                System.out.println("GO TO " + getStringIndexByCellEl(valOfCell));
+          //      System.out.println("GO TO " + getStringIndexByCellEl(valOfCell));
                 stack.push(currIndexString);
                 stack.push(getStringIndexByCellEl(valOfCell));
-                System.out.println("From  " + currIndexString);
-                System.out.println(getStringIndexByCellEl(valOfCell) + " TO " + valOfCell);
+        //        System.out.println("From  " + currIndexString);
+       //         System.out.println(getStringIndexByCellEl(valOfCell) + " TO " + valOfCell);
+            } else {
+                return currToken;
             }
         }
 
@@ -116,7 +119,7 @@ public class Runner {
             }
             System.out.println();
         }*/
-        System.out.println(i + " LOL " + grammar.get(i).get(0));
+      //  System.out.println(i + " LOL " + grammar.get(i).get(0));
         return grammar.get(i).get(0);
     }
 
@@ -169,7 +172,7 @@ public class Runner {
 
     private int getColomIndexByToken(Token token) {
         ArrayList<String> firstStrings = table.get(0);
-        //   System.out.println("Token val " + token.getValue());
+     //   System.out.println("Token val " + token.getValue());
         int x = -1;
 
         for (int i = 0; i < firstStrings.size(); i++) {
